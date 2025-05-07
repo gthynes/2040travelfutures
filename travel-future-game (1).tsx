@@ -167,7 +167,7 @@ const questions = [
 // Replace these URLs with your actual hosted image URLs
 const imagePlaceholders = {
   // For example: "space-hotel": "https://your-website.com/images/space-hotel.jpg",
-  "space-hotel": "/api/placeholder/400/240?text=Space+Hotel+and+Orbital+Tourism",
+  "space-hotel": "https://github.com/gthynes/2040travelfutures/blob/0f414e69a9f917b0a1c3f8109619f75fbb7acc95/Galactic%20glamour%20header.png",
   "empty-airport": "/api/placeholder/400/240?text=Empty+Airport+and+Reduced+Travel",
   "monitored-tourism": "/api/placeholder/400/240?text=Regulated+Tourism+and+Quotas",
   "wellness-retreat": "/api/placeholder/400/240?text=Medical+Wellness+Tourism"
