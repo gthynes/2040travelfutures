@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Journey to 2040 — The Ultimate Futures Travel Game</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --space: #0A0F1E;
+  --space-mid: #0D1525;
+  --amber: #C8922A;
+  --amber-light: #E8B55A;
+  --ivory: #F0ECE0;
+  --ivory-dim: rgba(240,236,224,0.6);
+  --ivory-ghost: rgba(240,236,224,0.12);
+  --ivory-whisper: rgba(240,236,224,0.06);
+  --galactic: #1B3A6B;
+  --galactic-bg: #060D20;
+  --lottery: #1A5C35;
+  --lottery-bg: #051209;
+  --pause: #7A3B1E;
+  --pause-bg: #130800;
+  --medical: #4A1A6B;
+  --medical-bg: #0D0518;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--space);
+  color: var(--ivory);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── SCREENS ─── */
+.screen { display: none; min-height: 100vh; flex-direction: column; }
+.screen.active { display: flex; }
+
+/* ─── STARS ─── */
+.stars {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 12%, rgba(240,236,224,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 22% 6%, rgba(240,236,224,0.35) 0%, transparent 100%),
+    radial-gradient(2px 2px at 68% 9%, rgba(240,236,224,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 85% 18%, rgba(240,236,224,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 52% 4%, rgba(240,236,224,0.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 6% 38%, rgba(240,236,224,0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 93% 32%, rgba(240,236,224,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 38% 25%, rgba(240,236,224,0.18) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 76% 42%, rgba(240,236,224,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 14% 62%, rgba(240,236,224,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 55%, rgba(240,236,224,0.2) 0%, transparent 100%),
+    radial-gradient(2px 2px at 30% 78%, rgba(240,236,224,0.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 88% 70%, rgba(240,236,224,0.3) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 48% 88%, rgba(240,236,224,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 72% 82%, rgba(240,236,224,0.22) 0%, transparent 100%);
+}
+
+/* ─── TYPOGRAPHY ─── */
+.display { font-family: 'Playfair Display', serif; font-weight: 700; }
+.display-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+.eyebrow {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--amber);
+}
+
+/* ─── BUTTONS ─── */
+.btn-primary {
+  background: var(--amber); color: #0A0F1E;
+  border: none; padding: 14px 36px; border-radius: 3px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+.btn-primary:hover { background: var(--amber-light); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-ghost {
+  background: transparent; color: var(--ivory-dim);
+  border: 0.5px solid rgba(240,236,224,0.2); padding: 14px 24px;
+  border-radius: 3px; font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 400; letter-spacing: 0.04em;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: rgba(240,236,224,0.4); color: var(--ivory); }
+
+/* ════════════════════════════════════════
+   SCREEN 1 — LANDING
+════════════════════════════════════════ */
+#screen-landing {
+  background: var(--space);
+  justify-content: space-between;
+}
+
+.landing-nav {
+  position: relative; z-index: 2;
+  padding: 1.5rem 2.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 0.5px solid var(--ivory-whisper);
+}
+
+.nav-logo { font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+.nav-byline { font-size: 12px; color: rgba(240,236,224,0.3); font-weight: 300; }
+
+.landing-hero {
+  flex: 1; position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 2rem 2rem 1rem;
+}
+
+.hero-bg-year {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(80px, 20vw, 160px);
+  color: rgba(240,236,224,0.04);
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -52%);
+  letter-spacing: -4px; pointer-events: none;
+  user-select: none; white-space: nowrap;
+}
+
+.hero-eyebrow-row {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;
+}
+.eyebrow-line { width: 32px; height: 1px; background: var(--amber); }
+
+.hero-title {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(38px, 7vw, 60px);
+  line-height: 1.1; letter-spacing: -0.5px;
+  color: var(--ivory); margin-bottom: 1rem;
+}
+.hero-title em { color: var(--amber); font-style: italic; }
+
+.hero-sub {
+  font-size: 16px; color: var(--ivory-dim); font-weight: 300;
+  line-height: 1.7; max-width: 420px; margin-bottom: 2.5rem;
+}
+
+.hero-cta-group { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+.hero-meta { font-size: 11px; color: rgba(240,236,224,0.25); font-weight: 300; letter-spacing: 0.04em; }
+
+.horizon-glow {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 160px;
+  background: linear-gradient(to top, rgba(27,58,107,0.25) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.scenario-strip {
+  position: relative; z-index: 2;
+  display: flex;
+  border-top: 0.5px solid var(--ivory-whisper);
+}
+.strip-item {
+  flex: 1; padding: 1.125rem 0.75rem;
+  border-right: 0.5px solid var(--ivory-whisper);
+  text-align: center; cursor: pointer;
+  transition: background 0.2s;
+}
+.strip-item:last-child { border-right: none; }
+.strip-item:hover { background: var(--ivory-whisper); }
+.strip-icon { font-size: 20px; margin-bottom: 5px; display: flex; justify-content: center; }
+.strip-name { font-size: 9px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,236,224,0.35); line-height: 1.4; }
+
+/* ════════════════════════════════════════
+   SCREEN 2 — QUESTION
+════════════════════════════════════════ */
+#screen-question {
+  background: var(--space);
+  position: relative;
+}
+
+.q-signal-bar {
+  position: relative; z-index: 2;
+  background: rgba(27,58,107,0.25);
+  border-bottom: 0.5px solid rgba(27,58,107,0.5);
+  padding: 0.75rem 2.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.q-signal-label { font-size: 9px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); white-space: nowrap; }
+.q-signal-divider { width: 1px; height: 14px; background: rgba(240,236,224,0.12); }
+.q-signal-text { font-size: 12px; color: var(--ivory-dim); font-weight: 300; font-style: italic; }
+
+.q-progress-bar {
+  position: relative; z-index: 2;
+  padding: 1.5rem 2.5rem 0;
+  display: flex; align-items: center; gap: 14px;
+}
+.q-dots { display: flex; gap: 6px; }
+.q-dot { width: 28px; height: 3px; border-radius: 2px; transition: background 0.4s; }
+.q-dot.done { background: var(--amber); }
+.q-dot.active { background: rgba(200,146,42,0.45); }
+.q-dot.future { background: rgba(240,236,224,0.08); }
+.q-count { font-size: 11px; color: rgba(240,236,224,0.25); margin-left: auto; }
+
+.q-body {
+  flex: 1; position: relative; z-index: 2;
+  padding: 2rem 2.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  max-width: 680px;
+}
+
+.q-number { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(240,236,224,0.25); margin-bottom: 0.875rem; }
+
+.q-text {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(20px, 3.5vw, 28px);
+  color: var(--ivory); line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.q-options { display: flex; flex-direction: column; gap: 10px; }
+
+.q-option {
+  background: rgba(240,236,224,0.03);
+  border: 0.5px solid rgba(240,236,224,0.1);
+  border-radius: 4px; padding: 1rem 1.25rem;
+  display: flex; align-items: flex-start; gap: 14px;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.q-option:hover { background: rgba(240,236,224,0.06); border-color: rgba(240,236,224,0.2); }
+.q-option.selected { background: rgba(200,146,42,0.08); border-color: rgba(200,146,42,0.45); }
+
+.q-option-key {
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 0.5px solid rgba(240,236,224,0.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 500; color: rgba(240,236,224,0.35);
+  flex-shrink: 0; transition: all 0.15s;
+}
+.q-option.selected .q-option-key { background: var(--amber); border-color: var(--amber); color: #0A0F1E; }
+
+.q-option-text { font-size: 14px; color: rgba(240,236,224,0.65); line-height: 1.5; font-weight: 300; padding-top: 2px; }
+.q-option.selected .q-option-text { color: var(--ivory); }
+
+.q-footer {
+  position: relative; z-index: 2;
+  padding: 0 2.5rem 2rem;
+  display: flex; justify-content: flex-end;
+}
+
+/* ════════════════════════════════════════
+   SCREEN 3 — SCANNING
+════════════════════════════════════════ */
+#screen-scan {
+  background: var(--space);
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+
+.scan-wrap { position: relative; z-index: 2; }
+
+.scan-rings {
+  width: 140px; height: 140px; margin: 0 auto 2rem;
+  position: relative; display: flex; align-items: center; justify-content: center;
+}
+.scan-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(200,146,42,0.3);
+  animation: pulse-ring 2s ease-in-out infinite;
+}
+.scan-ring:nth-child(1) { width: 140px; height: 140px; animation-delay: 0s; }
+.scan-ring:nth-child(2) { width: 104px; height: 104px; border-color: rgba(200,146,42,0.5); animation-delay: 0.3s; }
+.scan-ring:nth-child(3) { width: 68px; height: 68px; border-color: rgba(200,146,42,0.75); border-width: 1.5px; animation-delay: 0.6s; background: rgba(200,146,42,0.05); }
+.scan-icon-center { font-size: 26px; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; }
+
+@keyframes pulse-ring {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.03); }
+}
+
+.scan-title { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 700; color: var(--ivory); margin-bottom: 0.5rem; }
+.scan-sub { font-size: 14px; color: var(--ivory-dim); font-weight: 300; margin-bottom: 2.5rem; }
+
+.scan-bars { width: 280px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+.scan-bar-row { display: flex; align-items: center; gap: 12px; }
+.scan-bar-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(240,236,224,0.3); width: 90px; text-align: right; flex-shrink: 0; }
+.scan-bar-track { flex: 1; height: 3px; background: rgba(240,236,224,0.06); border-radius: 2px; overflow: hidden; }
+.scan-bar-fill { height: 100%; border-radius: 2px; background: var(--amber); width: 0%; transition: width 1.2s ease; }
+
+/* ════════════════════════════════════════
+   SCREEN 4 — REVEAL
+════════════════════════════════════════ */
+#screen-reveal { position: relative; }
+
+.reveal-bg { position: absolute; inset: 0; z-index: 0; transition: background 0.8s; }
+.reveal-constellation { position: absolute; inset: 0; z-index: 0; }
+.reveal-glow { position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; border-radius: 50%; opacity: 0.4; z-index: 0; }
+
+.reveal-nav {
+  position: relative; z-index: 2;
+  padding: 1.25rem 2.5rem;
+  display: flex; align-items: center; gap: 12px;
+}
+.reveal-nav-line { flex: 1; height: 0.5px; background: rgba(200,146,42,0.25); }
+.reveal-nav-text { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); }
+
+.reveal-main {
+  flex: 1; position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 1.5rem 2rem 1rem; text-align: center;
+}
+
+.reveal-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  border: 0.5px solid rgba(200,146,42,0.4); border-radius: 2px;
+  padding: 5px 16px; margin-bottom: 1.125rem;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--amber);
+}
+
+.reveal-name {
+  font-family: 'Playfair Display', serif; font-weight: 700;
+  font-size: clamp(38px, 8vw, 58px);
+  line-height: 1.05; letter-spacing: -0.5px;
+  color: var(--ivory); margin-bottom: 0.375rem;
+}
+.reveal-name em { font-style: italic; color: var(--amber); }
+
+.reveal-tagline { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: var(--ivory-dim); margin-bottom: 1.5rem; }
+
+.reveal-poster {
+  width: 190px; border-radius: 3px; overflow: hidden;
+  border: 0.5px solid rgba(200,146,42,0.2);
+  margin-bottom: 1.5rem; flex-shrink: 0;
+}
+.poster-header {
+  padding: 0.625rem 0.75rem; text-align: center;
+  border-bottom: 0.5px solid rgba(200,146,42,0.15);
+}
+.poster-eyebrow { font-size: 7px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 3px; }
+.poster-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ivory); line-height: 1.2; }
+.poster-art { height: 130px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.poster-footer { padding: 0.5rem 0.75rem; text-align: center; border-top: 0.5px solid rgba(200,146,42,0.1); }
+.poster-footer-text { font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,236,224,0.3); }
+
+.reveal-summary {
+  max-width: 460px; font-size: 15px; color: var(--ivory-dim);
+  line-height: 1.7; font-weight: 300; margin-bottom: 1.75rem;
+}
+.reveal-summary strong { color: var(--ivory); font-weight: 500; }
+
+.reveal-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.reveal-headlines {
+  position: relative; z-index: 2;
+  border-top: 0.5px solid var(--ivory-whisper);
+  display: flex;
+}
+.headline-col {
+  flex: 1; padding: 1rem 1.5rem;
+  border-right: 0.5px solid var(--ivory-whisper);
+}
+.headline-col:last-child { border-right: none; }
+.headline-date { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px; }
+.headline-text { font-size: 12px; color: rgba(240,236,224,0.45); line-height: 1.5; font-weight: 300; }
+
+/* ════════════════════════════════════════
+   SCREEN 5 — DEEP DIVE
+════════════════════════════════════════ */
+#screen-deepdive { position: relative; }
+
+.deepdive-header {
+  position: relative; z-index: 2;
+  padding: 1.5rem 2.5rem;
+  border-bottom: 0.5px solid var(--ivory-whisper);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.deepdive-header-scenario { font-size: 10px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); }
+
+.deepdive-body { position: relative; z-index: 2; padding: 2rem 2.5rem; max-width: 840px; }
+
+.section-label {
+  font-size: 9px; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: rgba(240,236,224,0.25);
+  display: flex; align-items: center; gap: 12px; margin-bottom: 1.25rem;
+}
+.section-label::after { content: ''; flex: 1; height: 0.5px; background: var(--ivory-whisper); }
+
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 2.5rem; }
+
+@media (max-width: 640px) { .three-col { grid-template-columns: 1fr; } }
+
+.info-card {
+  background: var(--ivory-whisper);
+  border: 0.5px solid rgba(240,236,224,0.08);
+  border-radius: 4px; padding: 1rem 1.125rem;
+}
+.info-card-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.625rem; opacity: 0.8; }
+.info-card-body { font-size: 13px; color: rgba(240,236,224,0.6); line-height: 1.6; font-weight: 300; }
+
+.pack-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
+.pack-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--amber); margin-top: 6px; flex-shrink: 0; }
+
+.reflection-card {
+  background: var(--ivory-whisper);
+  border: 0.5px solid rgba(240,236,224,0.08);
+  border-radius: 4px; padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+.reflection-q { font-family: 'Playfair Display', serif; font-size: 18px; font-style: italic; color: var(--ivory-dim); line-height: 1.5; margin-bottom: 0.5rem; }
+.reflection-note { font-size: 12px; color: rgba(240,236,224,0.25); font-weight: 300; }
+
+.capture-section { margin-bottom: 2.5rem; }
+.capture-label { font-size: 13px; color: var(--ivory-dim); margin-bottom: 0.875rem; }
+textarea {
+  width: 100%; background: rgba(240,236,224,0.04);
+  border: 0.5px solid rgba(240,236,224,0.12); border-radius: 4px;
+  padding: 0.875rem 1rem; font-size: 13px; font-weight: 300;
+  color: var(--ivory); font-family: 'Inter', sans-serif;
+  resize: vertical; min-height: 80px; line-height: 1.6; margin-bottom: 10px;
+}
+textarea::placeholder { color: rgba(240,236,224,0.2); }
+textarea:focus { outline: none; border-color: rgba(200,146,42,0.4); }
+
+.capture-row { display: flex; gap: 10px; flex-wrap: wrap; }
+input[type="text"], input[type="email"] {
+  flex: 1; min-width: 160px;
+  background: rgba(240,236,224,0.04);
+  border: 0.5px solid rgba(240,236,224,0.12); border-radius: 4px;
+  padding: 10px 14px; font-size: 13px; font-weight: 300;
+  color: var(--ivory); font-family: 'Inter', sans-serif;
+}
+input::placeholder { color: rgba(240,236,224,0.2); }
+input:focus { outline: none; border-color: rgba(200,146,42,0.4); }
+
+.explore-all {
+  border-top: 0.5px solid var(--ivory-whisper);
+  padding: 1.5rem 2.5rem 2rem;
+  position: relative; z-index: 2;
+}
+.explore-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 1.25rem; }
+@media (max-width: 640px) { .explore-grid { grid-template-columns: 1fr 1fr; } }
+
+.explore-card {
+  border-radius: 4px; padding: 0.875rem;
+  border: 0.5px solid rgba(240,236,224,0.08);
+  cursor: pointer; transition: opacity 0.2s;
+  text-align: center;
+}
+.explore-card:hover { opacity: 0.8; }
+.explore-card-icon { font-size: 22px; margin-bottom: 6px; display: flex; justify-content: center; }
+.explore-card-name { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.4; }
+
+/* ─── Scenario color theming ─── */
+body.galactic #screen-reveal .reveal-bg { background: var(--galactic-bg); }
+body.galactic #screen-reveal .reveal-glow { background: radial-gradient(ellipse, #1B3A6B 0%, transparent 65%); }
+body.galactic #screen-deepdive { background: var(--galactic-bg); }
+body.galactic .explore-card.galactic { background: rgba(27,58,107,0.3); border-color: rgba(27,58,107,0.6); }
+
+body.lottery #screen-reveal .reveal-bg { background: var(--lottery-bg); }
+body.lottery #screen-reveal .reveal-glow { background: radial-gradient(ellipse, #1A5C35 0%, transparent 65%); }
+body.lottery #screen-deepdive { background: var(--lottery-bg); }
+body.lottery .explore-card.lottery { background: rgba(26,92,53,0.3); border-color: rgba(26,92,53,0.6); }
+
+body.pause #screen-reveal .reveal-bg { background: var(--pause-bg); }
+body.pause #screen-reveal .reveal-glow { background: radial-gradient(ellipse, #7A3B1E 0%, transparent 65%); }
+body.pause #screen-deepdive { background: var(--pause-bg); }
+body.pause .explore-card.pause { background: rgba(122,59,30,0.3); border-color: rgba(122,59,30,0.6); }
+
+body.medical #screen-reveal .reveal-bg { background: var(--medical-bg); }
+body.medical #screen-reveal .reveal-glow { background: radial-gradient(ellipse, #4A1A6B 0%, transparent 65%); }
+body.medical #screen-deepdive { background: var(--medical-bg); }
+body.medical .explore-card.medical { background: rgba(74,26,107,0.3); border-color: rgba(74,26,107,0.6); }
+
+/* ─── Transitions ─── */
+.screen { animation: fadeIn 0.5s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.thank-msg { font-size: 13px; color: var(--amber); margin-top: 0.75rem; display: none; }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<!-- ════ SCREEN 1: LANDING ════ -->
+<div id="screen-landing" class="screen active">
+  <nav class="landing-nav">
+    <div class="nav-logo">Journey to 2040</div>
+    <div class="nav-byline">A futures project by Gail Thynes</div>
+  </nav>
+
+  <div class="landing-hero">
+    <div class="hero-bg-year">2040</div>
+    <div class="hero-eyebrow-row">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow">The ultimate futures travel game</div>
+      <div class="eyebrow-line"></div>
+    </div>
+    <h1 class="hero-title display">Where will<br>your choices<br><em>take you?</em></h1>
+    <p class="hero-sub">Answer 5 questions about how you travel today — and discover which version of 2040 you're heading toward.</p>
+    <div class="hero-cta-group">
+      <button class="btn-primary" onclick="startGame()">Begin your journey →</button>
+      <div class="hero-meta">5 questions · ~3 minutes · No right answers</div>
+    </div>
+    <div class="horizon-glow"></div>
+  </div>
+
+  <div class="scenario-strip">
+    <div class="strip-item"><div class="strip-icon" style="color:var(--amber)"><svg width="22" height="22" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(40,26,22)"><path d="M26 4 C26 4 36 12 36 26 L36 34 L16 34 L16 26 C16 12 26 4 26 4z"/><circle cx="26" cy="22" r="5"/><path d="M16 34 L10 40 L16 38"/><path d="M36 34 L42 40 L36 38"/><path d="M20 38 Q26 43 32 38"/><line x1="20" y1="40" x2="20" y2="52" stroke-width="2" opacity="0.7"/><line x1="26" y1="40" x2="26" y2="56" stroke-width="1.6" opacity="0.45"/><line x1="32" y1="40" x2="32" y2="50" stroke-width="1.3" opacity="0.25"/></g></svg></div><div class="strip-name">Galactic<br>Glamour</div></div>
+    <div class="strip-item"><div class="strip-icon" style="color:var(--amber)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/></svg></div><div class="strip-name">Global<br>Lottery</div></div>
+    <div class="strip-item"><div class="strip-icon" style="color:var(--amber)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11"/><rect x="6.5" y="9" width="11" height="8" rx="1.5"/><path d="M9 9V7.5a0.8 0.8 0 0 1 0.8-0.8h4.4a0.8 0.8 0 0 1 0.8 0.8V9"/><line x1="4" y1="20" x2="20" y2="4" stroke-width="1.8"/></svg></div><div class="strip-name">World<br>on Pause</div></div>
+    <div class="strip-item"><div class="strip-icon" style="color:var(--amber)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><div class="strip-name">Medically<br>Prescribed</div></div>
+  </div>
+</div>
+
+<!-- ════ SCREEN 2: QUESTION ════ -->
+<div id="screen-question" class="screen">
+  <div class="q-signal-bar">
+    <div class="q-signal-label">Signal from 2040</div>
+    <div class="q-signal-divider"></div>
+    <div class="q-signal-text" id="q-signal-text"></div>
+  </div>
+  <div class="q-progress-bar">
+    <div class="q-dots" id="q-dots"></div>
+    <div class="q-count" id="q-count"></div>
+  </div>
+  <div class="q-body">
+    <div class="q-number" id="q-number"></div>
+    <div class="q-text display" id="q-text"></div>
+    <div class="q-options" id="q-options"></div>
+  </div>
+  <div class="q-footer">
+    <button class="btn-primary" id="q-next-btn" onclick="nextQuestion()" style="opacity:0.35; pointer-events:none;">Next →</button>
+  </div>
+</div>
+
+<!-- ════ SCREEN 3: SCANNING ════ -->
+<div id="screen-scan" class="screen">
+  <div class="scan-wrap">
+    <div class="scan-rings">
+      <div class="scan-ring"></div>
+      <div class="scan-ring"></div>
+      <div class="scan-ring"><div class="scan-icon-center" style="color:var(--amber)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></div></div>
+    </div>
+    <div class="scan-title display">Mapping your future…</div>
+    <div class="scan-sub">Analyzing your choices against four possible 2040s</div>
+    <div class="scan-bars" id="scan-bars">
+      <div class="scan-bar-row"><div class="scan-bar-label">Autonomy</div><div class="scan-bar-track"><div class="scan-bar-fill" id="bar-autonomy"></div></div></div>
+      <div class="scan-bar-row"><div class="scan-bar-label">Sustainability</div><div class="scan-bar-track"><div class="scan-bar-fill" id="bar-sustain"></div></div></div>
+      <div class="scan-bar-row"><div class="scan-bar-label">Access</div><div class="scan-bar-track"><div class="scan-bar-fill" id="bar-access"></div></div></div>
+      <div class="scan-bar-row"><div class="scan-bar-label">Wellness</div><div class="scan-bar-track"><div class="scan-bar-fill" id="bar-wellness"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════ SCREEN 4: REVEAL ════ -->
+<div id="screen-reveal" class="screen">
+  <div class="reveal-bg"></div>
+  <div class="reveal-constellation"></div>
+  <div class="reveal-glow"></div>
+  <div class="reveal-nav">
+    <div class="reveal-nav-line"></div>
+    <div class="reveal-nav-text">Your 2040 has been revealed</div>
+    <div class="reveal-nav-line"></div>
+  </div>
+  <div class="reveal-main">
+    <div class="reveal-badge" id="reveal-badge">✦ Scenario 01 of 04</div>
+    <div class="reveal-name display" id="reveal-name"></div>
+    <div class="reveal-tagline display-italic" id="reveal-tagline"></div>
+    <div class="reveal-poster" id="reveal-poster">
+      <div class="poster-header" id="poster-header">
+        <div class="poster-eyebrow">Journey to 2040</div>
+        <div class="poster-title" id="poster-title"></div>
+      </div>
+      <div class="poster-art" id="poster-art"></div>
+      <div class="poster-footer"><div class="poster-footer-text" id="poster-footer-text"></div></div>
+    </div>
+    <div class="reveal-summary" id="reveal-summary"></div>
+    <div class="reveal-actions">
+      <button class="btn-primary" onclick="showDeepDive()">Explore this future →</button>
+      <button class="btn-ghost" onclick="showDeepDive()">See your packing list</button>
+    </div>
+  </div>
+  <div class="reveal-headlines" id="reveal-headlines"></div>
+</div>
+
+<!-- ════ SCREEN 5: DEEP DIVE ════ -->
+<div id="screen-deepdive" class="screen">
+  <div class="reveal-bg"></div>
+  <div class="deepdive-header">
+    <div class="deepdive-header-scenario" id="dd-scenario-label"></div>
+    <button class="btn-ghost" onclick="restartGame()" style="padding:8px 16px; font-size:11px;">Play again</button>
+  </div>
+  <div class="deepdive-body">
+    <div class="section-label">Pack these three things</div>
+    <div class="three-col" id="dd-pack"></div>
+
+    <div class="section-label">How to prepare for this future</div>
+    <div class="three-col" id="dd-prep"></div>
+
+    <div class="section-label">A question to sit with</div>
+    <div class="reflection-card">
+      <div class="reflection-q display-italic" id="dd-question"></div>
+      <div class="reflection-note">From the futures research of Gail Thynes</div>
+    </div>
+
+    <div class="capture-section">
+      <div class="section-label">Share your reaction</div>
+      <div class="capture-label">What surprised you about your result?</div>
+      <textarea id="capture-text" placeholder="Share a thought — responses feed ongoing futures research…" rows="3"></textarea>
+      <div class="capture-row">
+        <input type="text" id="capture-name" placeholder="Your name (optional)">
+        <input type="email" id="capture-email" placeholder="Email (optional)">
+        <button class="btn-primary" onclick="submitResponse()" style="padding:10px 24px; white-space:nowrap;">Submit ↗</button>
+      </div>
+      <div class="thank-msg" id="thank-msg">✦ Thank you — your response has been saved.</div>
+    </div>
+  </div>
+
+  <div class="explore-all">
+    <div class="section-label">Explore all four futures</div>
+    <div class="explore-grid">
+      <div class="explore-card galactic" onclick="jumpToScenario('galactic')">
+        <div class="explore-card-icon" style="color:rgba(100,150,220,0.8)"><svg width="22" height="22" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(40,26,22)"><path d="M26 4 C26 4 36 12 36 26 L36 34 L16 34 L16 26 C16 12 26 4 26 4z"/><circle cx="26" cy="22" r="5"/><path d="M16 34 L10 40 L16 38"/><path d="M36 34 L42 40 L36 38"/><path d="M20 38 Q26 43 32 38"/><line x1="20" y1="40" x2="20" y2="52" stroke-width="2" opacity="0.7"/><line x1="26" y1="40" x2="26" y2="56" stroke-width="1.6" opacity="0.45"/><line x1="32" y1="40" x2="32" y2="50" stroke-width="1.3" opacity="0.25"/></g></svg></div>
+        <div class="explore-card-name" style="color:rgba(100,150,220,0.8)">Galactic Glamour</div>
+      </div>
+      <div class="explore-card lottery" onclick="jumpToScenario('lottery')">
+        <div class="explore-card-icon" style="color:rgba(80,180,110,0.8)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/></svg></div>
+        <div class="explore-card-name" style="color:rgba(80,180,110,0.8)">Global Lottery</div>
+      </div>
+      <div class="explore-card pause" onclick="jumpToScenario('pause')">
+        <div class="explore-card-icon" style="color:rgba(200,120,60,0.8)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="11"/><rect x="6.5" y="9" width="11" height="8" rx="1.5"/><path d="M9 9V7.5a0.8 0.8 0 0 1 0.8-0.8h4.4a0.8 0.8 0 0 1 0.8 0.8V9"/><line x1="4" y1="20" x2="20" y2="4" stroke-width="1.8"/></svg></div>
+        <div class="explore-card-name" style="color:rgba(200,120,60,0.8)">World on Pause</div>
+      </div>
+      <div class="explore-card medical" onclick="jumpToScenario('medical')">
+        <div class="explore-card-icon" style="color:rgba(160,100,210,0.8)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div class="explore-card-name" style="color:rgba(160,100,210,0.8)">Medically Prescribed</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// GAME DATA
+// ═══════════════════════════════════════
+const QUESTIONS = [
+  {
+    signal: '"Galactic Glamour Travel Co. reports record $4.2M average trip cost as orbital hotel waitlist hits 6 years." — Travel Weekly, 2040',
+    text: "When you imagine the ideal travel experience, what matters most to you?",
+    options: [
+      { text: "Exclusivity and prestige — going where few others can", scores: { g:3, l:0, p:0, m:0 } },
+      { text: "Fairness — everyone deserves a chance to see the world", scores: { g:0, l:3, p:0, m:0 } },
+      { text: "Simplicity — staying close to home, traveling less but deeper", scores: { g:0, l:0, p:3, m:0 } },
+      { text: "Restoration — every trip should make me feel genuinely better", scores: { g:0, l:0, p:0, m:3 } }
+    ]
+  },
+  {
+    signal: '"Venice submerged: The last museum dedicated to its memory opens in Milan." — Global Heritage Trust, 2040',
+    text: "When a destination you love becomes overcrowded or endangered, what do you do?",
+    options: [
+      { text: "Go anyway — I want to experience it while I still can", scores: { g:2, l:0, p:1, m:0 } },
+      { text: "Wait for a fair permit or lottery system that limits visitor numbers", scores: { g:0, l:3, p:1, m:0 } },
+      { text: "Explore it virtually — the physical trip isn't worth the impact", scores: { g:0, l:1, p:2, m:1 } },
+      { text: "Let a wellness advisor decide if the journey is right for me", scores: { g:0, l:0, p:0, m:3 } }
+    ]
+  },
+  {
+    signal: '"Flights now 300% more expensive as Sustainable Aviation Fuel mandate hits full effect." — Aviation Daily, 2040',
+    text: "How do you feel about the environmental cost of travel?",
+    options: [
+      { text: "I'll pay a premium for sustainable options — or pay to offset my impact", scores: { g:2, l:1, p:0, m:0 } },
+      { text: "Travel should be regulated globally to protect the planet", scores: { g:0, l:3, p:0, m:0 } },
+      { text: "We should travel much less — locally, slowly, sustainably", scores: { g:0, l:0, p:3, m:0 } },
+      { text: "My doctor prescribes my travel — health and sustainability are linked", scores: { g:0, l:0, p:1, m:3 } }
+    ]
+  },
+  {
+    signal: '"Mandatory biannual health screening now required for all international travel." — Global Travel Authority, 2040',
+    text: "You're planning a major trip. Who or what has the most influence on where you go?",
+    options: [
+      { text: "My own ambition and wallet — I choose based on what's most extraordinary", scores: { g:3, l:0, p:0, m:0 } },
+      { text: "A global system that allocates access fairly across all travelers", scores: { g:0, l:3, p:0, m:0 } },
+      { text: "Local community impact — I only go where I'm genuinely welcomed", scores: { g:0, l:1, p:2, m:0 } },
+      { text: "My biometric data and medical team — travel as therapy", scores: { g:0, l:0, p:0, m:3 } }
+    ]
+  },
+  {
+    signal: '"Sports tourism now 18% of global GDP; next mega-event visa lottery opens Monday." — UNWTO, 2040',
+    text: "What do you believe travel will look like for most people in 2040?",
+    options: [
+      { text: "A luxury commodity — spectacular for the few, inaccessible for the many", scores: { g:3, l:0, p:0, m:0 } },
+      { text: "A managed global resource — rationed, tracked, but available to all", scores: { g:0, l:3, p:0, m:0 } },
+      { text: "Largely reduced — climate and politics will shrink the travel world", scores: { g:0, l:0, p:3, m:0 } },
+      { text: "Personalized and health-driven — trips prescribed like medicine", scores: { g:0, l:0, p:0, m:3 } }
+    ]
+  }
+];
+
+const SCENARIOS = {
+  galactic: {
+    name: ["<em>Galactic</em>", "Glamour"],
+    tagline: "See the world. Then leave it.",
+    badge: "✦ Scenario 01 of 04",
+    posterArt: `<svg width="52" height="52" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(40,26,22)"><path d="M26 4 C26 4 36 12 36 26 L36 34 L16 34 L16 26 C16 12 26 4 26 4z"/><circle cx="26" cy="22" r="5"/><path d="M16 34 L10 40 L16 38"/><path d="M36 34 L42 40 L36 38"/><path d="M20 38 Q26 43 32 38"/><line x1="20" y1="40" x2="20" y2="52" stroke-width="1.8" opacity="0.7"/><line x1="26" y1="40" x2="26" y2="56" stroke-width="1.4" opacity="0.45"/><line x1="32" y1="40" x2="32" y2="50" stroke-width="1.2" opacity="0.25"/></g></svg>`,
+    posterBg: "#0D1B3E",
+    summary: "In your 2040, travel is <strong>the ultimate status symbol</strong>. Nuclear-powered rockets ferry the ultra-wealthy to orbit. Luxury hyperloops cross continents in hours. You chose autonomy, prestige, and the extraordinary — and in this future, <strong>only those who can afford it go anywhere remarkable at all</strong>.",
+    headlines: [
+      { date: "March 2040", text: "RLxLockheed opens third orbital hotel; waitlist now 6 years" },
+      { date: "July 2040", text: "Hyperloop Pacific connects LA to Tokyo in 3 hours at 2,200 mph" },
+      { date: "Nov 2040", text: "82% of world population has never left their home country" }
+    ],
+    pack: [
+      { label: "Pack this", items: ["Multi-sensory recording device (captures scent, texture, sensation)", "Neural link translator for instantaneous communication in any language", "Adaptive smart clothing that adjusts to any environment or atmosphere"] },
+    ],
+    prep: [
+      { label: "Skills to build", body: "Aerospace engineering, luxury hospitality, high-frequency trading, private aviation licensing, orbital medicine." },
+      { label: "Places to visit now", body: "UNESCO sites before they disappear. Antarctica before the ice goes. The Amazon before it's a carbon credit." },
+      { label: "Investments to consider", body: "Space tourism ETFs, private space hotel bonds, neural translation startups, luxury hyperloop infrastructure." }
+    ],
+    question: '"If only the wealthy can see the world — what does that do to our shared sense of humanity?"',
+    color: "galactic"
+  },
+  lottery: {
+    name: ["<em>Global</em>", "Lottery"],
+    tagline: "Everyone gets a ticket. Not everyone wins.",
+    badge: "✦ Scenario 02 of 04",
+    posterArt: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/></svg>`,
+    posterBg: "#0A2A1A",
+    summary: "In your 2040, travel is <strong>a managed global resource</strong>. Governments negotiate visitor numbers like water rights. A global lottery system grants access to protected destinations. Conservation volunteering hours are required. You chose fairness and collective responsibility — and this future takes both <strong>very seriously</strong>.",
+    headlines: [
+      { date: "Jan 2040", text: "Global Journey Protocol ratified by 148 nations; first lottery draws begin" },
+      { date: "May 2040", text: "Free immersive travel library now available to all citizens — 4,200 destinations" },
+      { date: "Sep 2040", text: "Hospitality workers receive universal basic income under new tourism accord" }
+    ],
+    pack: [
+      { label: "Pack this", items: ["Zero-impact footwear that leaves no trace and records your exact path", "Universal travel permit with integrated carbon offset documentation", "Cultural immersion neural implant for instant language and cultural adaptation"] }
+    ],
+    prep: [
+      { label: "Skills to build", body: "Conservation biology, cultural mediation, volunteer travel coordination, multilingual diplomacy, UN tourism policy." },
+      { label: "Places to visit now", body: "Biodiverse hotspots before lottery restrictions. Remote communities before they're protected zones. Cross-cultural experiences while borders are still fluid." },
+      { label: "Mindset to develop", body: "Collective thinking over individual rights. Stewardship as identity. Travel as privilege, not right." }
+    ],
+    question: '"When access to the world is rationed fairly — does that make travel more meaningful, or less free?"',
+    color: "lottery"
+  },
+  pause: {
+    name: ["World on", "<em>Pause</em>"],
+    tagline: "The world got smaller. So did we.",
+    badge: "✦ Scenario 03 of 04",
+    posterArt: `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="26" r="24"/><rect x="11" y="19" width="30" height="20" rx="3"/><path d="M19 19V15.5a1.8 1.8 0 0 1 1.8-1.8h10.4a1.8 1.8 0 0 1 1.8 1.8V19"/><line x1="26" y1="25" x2="26" y2="33"/><line x1="15" y1="29" x2="37" y2="29"/><line x1="4" y1="48" x2="48" y2="4" stroke-width="1.6"/></svg>`,
+    posterBg: "#1A0800",
+    summary: "In your 2040, the era of mass travel is over. Climate collapse, political fragmentation, and economic crisis have shrunk the travel world dramatically. You chose depth over distance, local over global — and in this future, <strong>the most meaningful journeys happen close to home</strong>.",
+    headlines: [
+      { date: "Feb 2040", text: "Country ban lists emerge as new form of economic sanction; 34 nations restricted" },
+      { date: "Jun 2040", text: "Tourism anxiety disorder now recognized as global mental health emergency" },
+      { date: "Oct 2040", text: "Museums for lost destinations: 200 sites memorialized as 'heritage of what was'" }
+    ],
+    pack: [
+      { label: "Pack this", items: ["Personal security system with biometric authentication for safe passage", "Self-contained water purification kit with lifetime guarantee", "Complete digital archive of the world's major cultural sites and destinations"] }
+    ],
+    prep: [
+      { label: "Skills to build", body: "Local food growing, community organizing, digital archive curation, conflict mediation, hyperlocal tourism hosting." },
+      { label: "Places to visit now", body: "Everywhere you've been meaning to go. The window is closing. Last-chance tourism is real — and accelerating." },
+      { label: "Mindset to develop", body: "Radical local presence. Deep community investment. Finding the extraordinary in the near and familiar." }
+    ],
+    question: '"If the world contracts — what would you choose to preserve, and what would you let go?"',
+    color: "pause"
+  },
+  medical: {
+    name: ["<em>Medically</em>", "Prescribed"],
+    tagline: "Your doctor will see your passport now.",
+    badge: "✦ Scenario 04 of 04",
+    posterArt: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    posterBg: "#0D0518",
+    summary: "In your 2040, travel is <strong>therapeutic infrastructure</strong>. Biometric data guides every journey. Doctors prescribe destinations for mental health, longevity, and cognitive restoration. You chose wellbeing, personalization, and evidence-based living — and in this future, <strong>the best trips are the ones your body asks for</strong>.",
+    headlines: [
+      { date: "Apr 2040", text: "EU mandates biannual health screening for all international travelers" },
+      { date: "Aug 2040", text: "Sleep tourism now largest wellness travel sector at $2.4T globally" },
+      { date: "Dec 2040", text: "Neural-calibrated travel packages show 40% reduction in depression relapse rates" }
+    ],
+    pack: [
+      { label: "Pack this", items: ["Advanced biometric monitor that recommends activities based on your current state", "Specialized nutrition capsules designed for your genetic wellness profile", "Neural-calibrated meditation headset tailored to your personal brain patterns"] }
+    ],
+    prep: [
+      { label: "Skills to build", body: "Health data literacy, therapeutic travel design, neuroscience wellness, biometric coaching, longevity medicine." },
+      { label: "Places to visit now", body: "Forest bathing destinations. Blue zones. High-altitude retreats. Places with proven neurological restoration effects." },
+      { label: "Mindset to develop", body: "Body as compass. Wellness as navigation tool. Travel not as escape but as evidence-based self-optimization." }
+    ],
+    question: '"If your body chooses your journey — are you still the traveler, or just the passenger?"',
+    color: "medical"
+  }
+};
+
+// ═══════════════════════════════════════
+// GAME STATE
+// ═══════════════════════════════════════
+let currentQ = 0;
+let answers = [];
+let scores = { g: 0, l: 0, p: 0, m: 0 };
+let resultScenario = null;
+
+// ═══════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startGame() {
+  currentQ = 0;
+  answers = [];
+  scores = { g: 0, l: 0, p: 0, m: 0 };
+  renderQuestion();
+  showScreen('screen-question');
+}
+
+// ═══════════════════════════════════════
+// QUESTION RENDERING
+// ═══════════════════════════════════════
+function renderQuestion() {
+  const q = QUESTIONS[currentQ];
+
+  // Signal
+  document.getElementById('q-signal-text').textContent = q.signal;
+
+  // Progress dots
+  const dots = document.getElementById('q-dots');
+  dots.innerHTML = QUESTIONS.map((_, i) => {
+    let cls = i < currentQ ? 'done' : i === currentQ ? 'active' : 'future';
+    return `<div class="q-dot ${cls}"></div>`;
+  }).join('');
+  document.getElementById('q-count').textContent = `Question ${currentQ + 1} of ${QUESTIONS.length}`;
+
+  // Number & text
+  document.getElementById('q-number').textContent = `Question 0${currentQ + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  // Options
+  const opts = document.getElementById('q-options');
+  opts.innerHTML = q.options.map((o, i) => `
+    <div class="q-option" onclick="selectOption(${i})" data-index="${i}">
+      <div class="q-option-key">${String.fromCharCode(65 + i)}</div>
+      <div class="q-option-text">${o.text}</div>
+    </div>
+  `).join('');
+
+  // Reset next button
+  const btn = document.getElementById('q-next-btn');
+  btn.style.opacity = '0.35';
+  btn.style.pointerEvents = 'none';
+
+  // Restore prior selection if navigating back
+  if (answers[currentQ] !== undefined) {
+    selectOption(answers[currentQ], true);
+  }
+}
+
+function selectOption(index, silent) {
+  document.querySelectorAll('.q-option').forEach((el, i) => {
+    el.classList.toggle('selected', i === index);
+  });
+  answers[currentQ] = index;
+  const btn = document.getElementById('q-next-btn');
+  btn.style.opacity = '1';
+  btn.style.pointerEvents = 'auto';
+  btn.textContent = currentQ === QUESTIONS.length - 1 ? 'See my future →' : 'Next →';
+}
+
+function nextQuestion() {
+  if (answers[currentQ] === undefined) return;
+
+  // Tally scores
+  const chosen = QUESTIONS[currentQ].options[answers[currentQ]];
+  scores.g += chosen.scores.g;
+  scores.l += chosen.scores.l;
+  scores.p += chosen.scores.p;
+  scores.m += chosen.scores.m;
+
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    runScan();
+  }
+}
+
+// ═══════════════════════════════════════
+// SCANNING + RESULT
+// ═══════════════════════════════════════
+function runScan() {
+  showScreen('screen-scan');
+
+  // Determine winner
+  const winner = Object.entries(scores).sort((a, b) => b[1] - a[1])[0][0];
+  const keyMap = { g: 'galactic', l: 'lottery', p: 'pause', m: 'medical' };
+  resultScenario = keyMap[winner];
+
+  // Animate bars after short delay
+  const total = scores.g + scores.l + scores.p + scores.m || 1;
+  setTimeout(() => {
+    document.getElementById('bar-autonomy').style.width = Math.round((scores.g / total) * 100) + '%';
+    document.getElementById('bar-sustain').style.width = Math.round((scores.l / total) * 100) + '%';
+    document.getElementById('bar-access').style.width = Math.round((scores.p / total) * 100) + '%';
+    document.getElementById('bar-wellness').style.width = Math.round((scores.m / total) * 100) + '%';
+  }, 300);
+
+  // Show reveal after 2.8s
+  setTimeout(() => buildReveal(resultScenario), 2800);
+}
+
+// ═══════════════════════════════════════
+// REVEAL SCREEN
+// ═══════════════════════════════════════
+function buildReveal(key) {
+  const s = SCENARIOS[key];
+  document.body.className = key;
+
+  document.getElementById('reveal-badge').textContent = s.badge;
+  document.getElementById('reveal-name').innerHTML = s.name.join('<br>');
+  document.getElementById('reveal-tagline').textContent = s.tagline;
+  document.getElementById('reveal-summary').innerHTML = s.summary;
+
+  // Poster
+  document.getElementById('poster-title').innerHTML = s.name.join('<br>').replace(/<em>/g,'').replace(/<\/em>/g,'');
+  document.getElementById('poster-art').style.background = s.posterBg;
+  document.getElementById('poster-art').innerHTML = s.posterArt; document.getElementById('poster-art').style.color = 'var(--amber)';
+  document.getElementById('poster-footer-text').textContent = s.tagline;
+
+  // Headlines
+  document.getElementById('reveal-headlines').innerHTML = s.headlines.map(h => `
+    <div class="headline-col">
+      <div class="headline-date">${h.date}</div>
+      <div class="headline-text">${h.text}</div>
+    </div>
+  `).join('');
+
+  showScreen('screen-reveal');
+}
+
+// ═══════════════════════════════════════
+// DEEP DIVE SCREEN
+// ═══════════════════════════════════════
+function showDeepDive() {
+  const s = SCENARIOS[resultScenario];
+
+  document.getElementById('dd-scenario-label').textContent = s.name.join(' ').replace(/<[^>]+>/g,'') + ' · Your 2040';
+
+  // Pack
+  document.getElementById('dd-pack').innerHTML = s.pack[0].items.map(item => `
+    <div class="info-card">
+      <div class="info-card-label">Essential item</div>
+      <div class="info-card-body"><div class="pack-item"><div class="pack-dot"></div><span>${item}</span></div></div>
+    </div>
+  `).join('');
+
+  // Prep
+  document.getElementById('dd-prep').innerHTML = s.prep.map(p => `
+    <div class="info-card">
+      <div class="info-card-label">${p.label}</div>
+      <div class="info-card-body">${p.body}</div>
+    </div>
+  `).join('');
+
+  // Reflection question
+  document.getElementById('dd-question').textContent = s.question;
+
+  showScreen('screen-deepdive');
+}
+
+// ═══════════════════════════════════════
+// DATA CAPTURE
+// ═══════════════════════════════════════
+async function submitResponse() {
+  const response = {
+    scenario: resultScenario,
+    answers: answers,
+    scores: scores,
+    reflection: document.getElementById('capture-text').value,
+    name: document.getElementById('capture-name').value,
+    email: document.getElementById('capture-email').value,
+    timestamp: new Date().toISOString()
+  };
+
+  // Save to persistent storage
+  try {
+    const existing = await window.storage.get('responses');
+    const all = existing ? JSON.parse(existing.value) : [];
+    all.push(response);
+    await window.storage.set('responses', JSON.stringify(all));
+  } catch(e) {
+    // Storage not available in standalone mode — log to console
+    console.log('Response:', response);
+  }
+
+  document.getElementById('thank-msg').style.display = 'block';
+  document.querySelector('.capture-section .btn-primary').textContent = 'Saved ✓';
+  document.querySelector('.capture-section .btn-primary').style.background = '#2A5C35';
+}
+
+// ═══════════════════════════════════════
+// EXPLORE ALL FUTURES
+// ═══════════════════════════════════════
+function jumpToScenario(key) {
+  resultScenario = key;
+  buildReveal(key);
+  showScreen('screen-reveal');
+}
+
+function restartGame() {
+  document.body.className = '';
+  showScreen('screen-landing');
+}
+</script>
+</body>
+</html>
