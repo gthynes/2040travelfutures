@@ -339,6 +339,7 @@ body {
 .poster-eyebrow { font-size: 7px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--amber); margin-bottom: 3px; }
 .poster-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 700; color: var(--ivory); line-height: 1.2; }
 .poster-art { height: 130px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.poster-art img { width: 100%; height: 100%; object-fit: cover; }
 .poster-footer { padding: 0.5rem 0.75rem; text-align: center; border-top: 0.5px solid rgba(200,146,42,0.1); }
 .poster-footer-text { font-size: 7px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(240,236,224,0.3); }
 
@@ -356,12 +357,12 @@ body {
   display: flex;
 }
 .headline-col {
-  flex: 1; padding: 1rem 1.5rem;
+  flex: 1; padding: 1.5rem 2rem;
   border-right: 0.5px solid var(--ivory-whisper);
 }
 .headline-col:last-child { border-right: none; }
-.headline-date { font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); margin-bottom: 5px; }
-.headline-text { font-size: 12px; color: rgba(240,236,224,0.45); line-height: 1.5; font-weight: 300; }
+.headline-date { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-bottom: 10px; font-weight: 600; }
+.headline-text { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 19px; color: rgba(240,236,224,0.75); line-height: 1.35; }
 
 /* ════════════════════════════════════════
    SCREEN 5 — DEEP DIVE
@@ -397,6 +398,7 @@ body {
 .info-card-label { font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.625rem; opacity: 0.8; }
 .info-card-body { font-size: 13px; color: rgba(240,236,224,0.6); line-height: 1.6; font-weight: 300; }
 
+.pack-img { width: 100%; height: 90px; object-fit: cover; border-radius: 3px; margin-bottom: 0.625rem; }
 .pack-item { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px; }
 .pack-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--amber); margin-top: 6px; flex-shrink: 0; }
 
@@ -703,6 +705,7 @@ const SCENARIOS = {
     tagline: "See the world. Then leave it.",
     badge: "✦ Scenario 01 of 04",
     posterArt: `<svg width="52" height="52" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><g transform="rotate(40,26,22)"><path d="M26 4 C26 4 36 12 36 26 L36 34 L16 34 L16 26 C16 12 26 4 26 4z"/><circle cx="26" cy="22" r="5"/><path d="M16 34 L10 40 L16 38"/><path d="M36 34 L42 40 L36 38"/><path d="M20 38 Q26 43 32 38"/><line x1="20" y1="40" x2="20" y2="52" stroke-width="1.8" opacity="0.7"/><line x1="26" y1="40" x2="26" y2="56" stroke-width="1.4" opacity="0.45"/><line x1="32" y1="40" x2="32" y2="50" stroke-width="1.2" opacity="0.25"/></g></svg>`,
+    posterImg: "Galactic glamour header.png",
     posterBg: "#0D1B3E",
     summary: "In your 2040, travel is <strong>the ultimate status symbol</strong>. Nuclear-powered rockets ferry the ultra-wealthy to orbit. Luxury hyperloops cross continents in hours. You chose autonomy, prestige, and the extraordinary — and in this future, <strong>only those who can afford it go anywhere remarkable at all</strong>.",
     headlines: [
@@ -711,7 +714,11 @@ const SCENARIOS = {
       { date: "Nov 2040", text: "82% of world population has never left their home country" }
     ],
     pack: [
-      { label: "Pack this", items: ["Multi-sensory recording device (captures scent, texture, sensation)", "Neural link translator for instantaneous communication in any language", "Adaptive smart clothing that adjusts to any environment or atmosphere"] },
+      { label: "Pack this", items: [
+        { text: "Multi-sensory recording device (captures scent, texture, sensation)", img: "glamour_recording.png" },
+        { text: "Neural link translator for instantaneous communication in any language", img: "glamour_translator.png" },
+        { text: "Adaptive smart clothing that adjusts to any environment or atmosphere", img: "glamour_suit.png" }
+      ] },
     ],
     prep: [
       { label: "Skills to build", body: "Aerospace engineering, luxury hospitality, high-frequency trading, private aviation licensing, orbital medicine." },
@@ -726,6 +733,7 @@ const SCENARIOS = {
     tagline: "Everyone gets a ticket. Not everyone wins.",
     badge: "✦ Scenario 02 of 04",
     posterArt: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="9" y1="12" x2="9.01" y2="12"/><line x1="12" y1="12" x2="12.01" y2="12"/><line x1="15" y1="12" x2="15.01" y2="12"/></svg>`,
+    posterImg: "Global protocal header.png",
     posterBg: "#0A2A1A",
     summary: "In your 2040, travel is <strong>a managed global resource</strong>. Governments negotiate visitor numbers like water rights. A global lottery system grants access to protected destinations. Conservation volunteering hours are required. You chose fairness and collective responsibility — and this future takes both <strong>very seriously</strong>.",
     headlines: [
@@ -734,7 +742,11 @@ const SCENARIOS = {
       { date: "Sep 2040", text: "Hospitality workers receive universal basic income under new tourism accord" }
     ],
     pack: [
-      { label: "Pack this", items: ["Zero-impact footwear that leaves no trace and records your exact path", "Universal travel permit with integrated carbon offset documentation", "Cultural immersion neural implant for instant language and cultural adaptation"] }
+      { label: "Pack this", items: [
+        { text: "Zero-impact footwear that leaves no trace and records your exact path", img: "protocol_footwear.png" },
+        { text: "Universal travel permit with integrated carbon offset documentation", img: "protocol_permit.png" },
+        { text: "Cultural immersion neural implant for instant language and cultural adaptation", img: "protocol_implant.png" }
+      ] }
     ],
     prep: [
       { label: "Skills to build", body: "Conservation biology, cultural mediation, volunteer travel coordination, multilingual diplomacy, UN tourism policy." },
@@ -749,6 +761,7 @@ const SCENARIOS = {
     tagline: "The world got smaller. So did we.",
     badge: "✦ Scenario 03 of 04",
     posterArt: `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><circle cx="26" cy="26" r="24"/><rect x="11" y="19" width="30" height="20" rx="3"/><path d="M19 19V15.5a1.8 1.8 0 0 1 1.8-1.8h10.4a1.8 1.8 0 0 1 1.8 1.8V19"/><line x1="26" y1="25" x2="26" y2="33"/><line x1="15" y1="29" x2="37" y2="29"/><line x1="4" y1="48" x2="48" y2="4" stroke-width="1.6"/></svg>`,
+    posterImg: "World on pause header.png",
     posterBg: "#1A0800",
     summary: "In your 2040, the era of mass travel is over. Climate collapse, political fragmentation, and economic crisis have shrunk the travel world dramatically. You chose depth over distance, local over global — and in this future, <strong>the most meaningful journeys happen close to home</strong>.",
     headlines: [
@@ -757,7 +770,11 @@ const SCENARIOS = {
       { date: "Oct 2040", text: "Museums for lost destinations: 200 sites memorialized as 'heritage of what was'" }
     ],
     pack: [
-      { label: "Pack this", items: ["Personal security system with biometric authentication for safe passage", "Self-contained water purification kit with lifetime guarantee", "Complete digital archive of the world's major cultural sites and destinations"] }
+      { label: "Pack this", items: [
+        { text: "Personal security system with biometric authentication for safe passage", img: "pause_security.png" },
+        { text: "Self-contained water purification kit with lifetime guarantee", img: "pause_water.png" },
+        { text: "Complete digital archive of the world's major cultural sites and destinations", img: "pause_archive.png" }
+      ] }
     ],
     prep: [
       { label: "Skills to build", body: "Local food growing, community organizing, digital archive curation, conflict mediation, hyperlocal tourism hosting." },
@@ -772,6 +789,7 @@ const SCENARIOS = {
     tagline: "Your doctor will see your passport now.",
     badge: "✦ Scenario 04 of 04",
     posterArt: `<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>`,
+    posterImg: "Medically prescribed header.png",
     posterBg: "#0D0518",
     summary: "In your 2040, travel is <strong>therapeutic infrastructure</strong>. Biometric data guides every journey. Doctors prescribe destinations for mental health, longevity, and cognitive restoration. You chose wellbeing, personalization, and evidence-based living — and in this future, <strong>the best trips are the ones your body asks for</strong>.",
     headlines: [
@@ -780,7 +798,11 @@ const SCENARIOS = {
       { date: "Dec 2040", text: "Neural-calibrated travel packages show 40% reduction in depression relapse rates" }
     ],
     pack: [
-      { label: "Pack this", items: ["Advanced biometric monitor that recommends activities based on your current state", "Specialized nutrition capsules designed for your genetic wellness profile", "Neural-calibrated meditation headset tailored to your personal brain patterns"] }
+      { label: "Pack this", items: [
+        { text: "Advanced biometric monitor that recommends activities based on your current state", img: "prescribed_monitor.png" },
+        { text: "Specialized nutrition capsules designed for your genetic wellness profile", img: "prescribed_pills.png" },
+        { text: "Neural-calibrated meditation headset tailored to your personal brain patterns", img: "prescribed_headset.png" }
+      ] }
     ],
     prep: [
       { label: "Skills to build", body: "Health data literacy, therapeutic travel design, neuroscience wellness, biometric coaching, longevity medicine." },
@@ -926,7 +948,8 @@ function buildReveal(key) {
   // Poster
   document.getElementById('poster-title').innerHTML = s.name.join('<br>').replace(/<em>/g,'').replace(/<\/em>/g,'');
   document.getElementById('poster-art').style.background = s.posterBg;
-  document.getElementById('poster-art').innerHTML = s.posterArt; document.getElementById('poster-art').style.color = 'var(--amber)';
+  document.getElementById('poster-art').innerHTML = s.posterImg ? `<img src="${s.posterImg}" alt="${s.tagline}">` : s.posterArt;
+  document.getElementById('poster-art').style.color = 'var(--amber)';
   document.getElementById('poster-footer-text').textContent = s.tagline;
 
   // Headlines
@@ -952,7 +975,8 @@ function showDeepDive() {
   document.getElementById('dd-pack').innerHTML = s.pack[0].items.map(item => `
     <div class="info-card">
       <div class="info-card-label">Essential item</div>
-      <div class="info-card-body"><div class="pack-item"><div class="pack-dot"></div><span>${item}</span></div></div>
+      <img class="pack-img" src="${item.img}" alt="${item.text}">
+      <div class="info-card-body"><div class="pack-item"><div class="pack-dot"></div><span>${item.text}</span></div></div>
     </div>
   `).join('');
 
